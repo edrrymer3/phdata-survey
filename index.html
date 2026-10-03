@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>phData — Office Market Survey | JLL</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f9fb;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --text: #1a202c;
+      --muted: #718096;
+      --blue: #2563eb;
+      --blue-light: #eff6ff;
+      --green: #16a34a;
+      --green-light: #f0fdf4;
+      --jll-red: #E4002B;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* HEADER */
+    header { background: white; border-bottom: 1px solid var(--border); padding: 0 40px; position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; flex-wrap: wrap; gap: 12px; }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-client { font-size: 16px; font-weight: 700; color: var(--text); }
+    .header-sep { color: #cbd5e0; }
+    .header-jll { font-size: 18px; font-weight: 900; color: var(--jll-red); font-family: Georgia, serif; }
+    .header-badge { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.05em; }
+    .header-meta { font-size: 12px; color: var(--muted); }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%); color: white; padding: 48px 40px; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(24px, 3vw, 40px); font-weight: 700; margin-bottom: 8px; }
+    .hero-sub { font-size: 16px; opacity: 0.85; margin-bottom: 32px; }
+    .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+    .hero-stat { }
+    .hero-stat-num { font-size: 28px; font-weight: 700; }
+    .hero-stat-label { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+
+    /* MAP PLACEHOLDER */
+    .map-section { background: white; border-bottom: 1px solid var(--border); padding: 0; }
+    .map-inner { max-width: 1200px; margin: 0 auto; padding: 32px 40px; }
+    .map-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .map-pin { display: flex; align-items: center; gap-10px; background: var(--blue-light); border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 14px; font-size: 13px; }
+    .pin-num { width: 24px; height: 24px; background: var(--blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-right: 10px; }
+
+    /* PROPERTIES */
+    .properties { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+    .section-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .section-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+
+    .property-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; transition: box-shadow 0.2s; }
+    .property-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .property-header { display: flex; align-items: stretch; }
+    .property-num { width: 48px; background: var(--blue); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; flex-shrink: 0; }
+    .property-title-bar { flex: 1; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-bottom: 1px solid var(--border); }
+    .property-name { font-size: 16px; font-weight: 700; }
+    .property-address { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .property-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
+    .tag-blue { background: var(--blue-light); color: var(--blue); }
+    .tag-green { background: var(--green-light); color: var(--green); }
+    .tag-gray { background: #f1f5f9; color: #475569; }
+
+    .property-body { padding: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .prop-section { }
+    .prop-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 10px; }
+
+    .suite-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .suite-table th { text-align: left; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding: 4px 8px; background: #f8fafc; }
+    .suite-table td { padding: 6px 8px; border-top: 1px solid var(--border); }
+    .suite-table tr:first-child td { border-top: none; }
+    .rate-highlight { font-weight: 700; color: var(--blue); }
+
+    .amenity-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    .amenity { background: #f1f5f9; color: #475569; font-size: 11px; padding: 3px 8px; border-radius: 20px; }
+
+    .building-meta { font-size: 13px; color: var(--text); }
+    .building-meta-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
+    .building-meta-row:last-child { border-bottom: none; }
+    .meta-label { color: var(--muted); }
+    .meta-val { font-weight: 500; }
+
+    /* COMPARISON TABLE */
+    .comparison { padding: 32px 40px; max-width: 1200px; margin: 0 auto; }
+    .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+    .comp-table th { background: #1e3a5f; color: white; text-align: center; padding: 12px 16px; font-size: 12px; font-weight: 600; }
+    .comp-table th:first-child { text-align: left; background: #162d4a; }
+    .comp-table td { padding: 10px 16px; text-align: center; border-bottom: 1px solid var(--border); }
+    .comp-table td:first-child { text-align: left; font-weight: 600; background: #f8fafc; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .comp-table tr:last-child td { border-bottom: none; }
+    .comp-table tr:nth-child(even) td:not(:first-child) { background: #fafbfc; }
+    .best { color: var(--green); font-weight: 700; }
+
+    /* FOOTER */
+    footer { background: #1e3a5f; color: white; padding: 28px 40px; margin-top: 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer p { font-size: 12px; opacity: 0.6; }
+
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      .hero { padding: 32px 20px; }
+      .map-inner, .properties, .comparison { padding: 24px 20px; }
+      .property-body { grid-template-columns: 1fr; }
+      .map-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+      footer { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <span class="header-client">phData</span>
+      <span class="header-sep">·</span>
+      <span class="header-jll">JLL</span>
+      <span class="header-badge">Market Survey</span>
+    </div>
+    <div class="header-meta">Minneapolis CBD · October 2026</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Office Market Survey</h1>
+    <p class="hero-sub">Minneapolis CBD · Prepared by JLL · October 2026</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Properties Surveyed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">$28–$45</div>
+        <div class="hero-stat-label">Gross Rate Range ($/SF)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">317–28,850</div>
+        <div class="hero-stat-label">SF Available Per Suite</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Submarkets</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCATION OVERVIEW -->
+<div class="map-section">
+  <div class="map-inner">
+    <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:14px;">Property Locations</div>
+    <div class="map-grid">
+      <div class="map-pin"><div class="pin-num">1</div>WeWork — 729 Washington Ave N</div>
+      <div class="map-pin"><div class="pin-num">2</div>T3 — 323 Washington Ave N</div>
+      <div class="map-pin"><div class="pin-num">3</div>Industrious — 323 Washington Ave N, Ste 200</div>
+      <div class="map-pin"><div class="pin-num">4</div>Colonial Warehouse — 212 3rd Ave N</div>
+      <div class="map-pin"><div class="pin-num">5</div>Washington Pioneer — 100 Washington Ave S</div>
+      <div class="map-pin"><div class="pin-num">6</div>400 4th St S</div>
+      <div class="map-pin"><div class="pin-num">7</div>PwC Plaza — 45 S 7th St</div>
+      <div class="map-pin"><div class="pin-num">8</div>RSM Plaza West Tower — 801 Nicollet Mall</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTIES -->
+<div class="properties">
+  <div class="section-title">Property Details</div>
+  <div class="section-sub">8 options across the Minneapolis CBD and North Loop</div>
+
+  <!-- 1. WeWork -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">1</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">WeWork</div>
+          <div class="property-address">729 Washington Ave N, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-blue">Coworking</span>
+          <span class="tag tag-gray">Built 2019</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Available Suites</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>Desks</th><th>Monthly Rate</th></tr>
+          <tr><td>07-134</td><td>Max 14</td><td class="rate-highlight">$4,500/mo</td></tr>
+          <tr><td>07-137</td><td>Max 24</td><td class="rate-highlight">$7,650/mo</td></tr>
+        </table>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">12-month rate · All-inclusive</div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">United Properties</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">80,800 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Year Built</span><span class="meta-val">2019</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">Available nearby</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Bookable meeting rooms</span>
+          <span class="amenity">Phone booths</span>
+          <span class="amenity">Outdoor terrace</span>
+          <span class="amenity">Rooftop deck + grills</span>
+          <span class="amenity">Fitness center</span>
+          <span class="amenity">Bike storage</span>
+          <span class="amenity">On-site retail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. T3 -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">2</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">T3 Minneapolis</div>
+          <div class="property-address">323 Washington Ave N, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">49,216 SF Available</span>
+          <span class="tag tag-gray">Built 2016</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suite</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>380</td><td>2,671</td><td>$29.00</td><td>$16.27</td><td class="rate-highlight">$45.27/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">LaSalle Inv. Mgmt</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">221,552 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Available SF</span><span class="meta-val">49,216 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.38/1,000 SF · Covered 65 / Surface 20</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Rooftop deck</span>
+          <span class="amenity">Fitness center</span>
+          <span class="amenity">Bike storage</span>
+          <span class="amenity">On-site retail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Industrious -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">3</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">Industrious</div>
+          <div class="property-address">323 Washington Ave N, Suite 200, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-blue">Coworking</span>
+          <span class="tag tag-gray">Inside T3</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Available Offices</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>Size</th><th>Monthly Rate</th></tr>
+          <tr><td>16</td><td>317 SF · 8-person</td><td class="rate-highlight">$4,900/mo</td></tr>
+          <tr><td>18</td><td>227 SF · 5-person</td><td class="rate-highlight">$3,500/mo</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Total SF</span><span class="meta-val">34,000 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Available</span><span class="meta-val">544 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">Ramp C · $150/month</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Conference room access</span>
+          <span class="amenity">Fitness center</span>
+          <span class="amenity">Showers</span>
+          <span class="amenity">Inside T3 building</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Colonial Warehouse -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">4</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">Colonial Warehouse</div>
+          <div class="property-address">212 3rd Ave N, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">28,850 SF Available</span>
+          <span class="tag tag-gray">Built 1885</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suites</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>356</td><td>2,983</td><td>$20–25</td><td>$12.33</td><td class="rate-highlight">$32–37/SF</td></tr>
+          <tr><td>405</td><td>3,419</td><td>$25.00</td><td>$12.33</td><td class="rate-highlight">$37.33/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Asana Partners</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">248,195 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.93/1,000 · Surface $200/mo</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Fitness center + showers</span>
+          <span class="amenity">Cedar Lake Trail access</span>
+          <span class="amenity">Bike storage</span>
+          <span class="amenity">Near Target Field</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Washington Pioneer -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">5</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">Washington Pioneer</div>
+          <div class="property-address">100 Washington Ave S, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">63,553 SF Available</span>
+          <span class="tag tag-gray">Built 1980/2001</span>
+          <span class="tag tag-gray">Downtown</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suites</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>1306</td><td>2,903</td><td>$25.00</td><td>$15.82</td><td class="rate-highlight">$36.82/SF</td></tr>
+          <tr><td>1330</td><td>3,744</td><td>$25.00</td><td>$15.82</td><td class="rate-highlight">$36.82/SF</td></tr>
+          <tr><td>1910</td><td>2,869</td><td>$25.00</td><td>$15.82</td><td class="rate-highlight">$36.82/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Pioneer Acquisitions LLC</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">531,040 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">2.56/1,000 · Covered 431 / Surface 58</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Rustica Bakery on-site</span>
+          <span class="amenity">Lobby renovation planned</span>
+          <span class="amenity">Nomikai Lounge incoming</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. PwC Plaza -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">7</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">PwC Plaza</div>
+          <div class="property-address">45 S 7th St, Minneapolis, MN 55402</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">209,612 SF Available</span>
+          <span class="tag tag-gray">Built 1987/2022</span>
+          <span class="tag tag-gray">Downtown</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suite</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>420</td><td>2,763</td><td>$20.00</td><td>$14.08</td><td class="rate-highlight">$34.08/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Franklin Street Properties</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">346,516 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.91/1,000 · Covered 315</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">On-site restaurant</span>
+          <span class="amenity">Tenant lounge</span>
+          <span class="amenity">Fitness center</span>
+          <span class="amenity">Conference spaces</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. RSM Plaza -->
+  <div class="property-card">
+    <div class="property-header">
+      <div class="property-num">8</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">RSM Plaza West Tower</div>
+          <div class="property-address">801 Nicollet Mall, Minneapolis, MN 55402</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">56,779 SF Available</span>
+          <span class="tag tag-gray">Built 1968/2020</span>
+          <span class="tag tag-gray">Nicollet Mall</span>
+        </div>
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suite</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>350</td><td>3,222</td><td>$18–19</td><td>$15.66</td><td class="rate-highlight">$33.66–34.66/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Golub & Company</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">415,238 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">2.09/1,000 · Covered 867</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Upscale on-site restaurant</span>
+          <span class="amenity">Rooftop terrace</span>
+          <span class="amenity">Tenant lounge</span>
+          <span class="amenity">Fitness center</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="comparison">
+  <div class="section-title">Side-by-Side Comparison</div>
+  <div class="section-sub">Key financial metrics across all surveyed properties</div>
+  <div style="overflow-x:auto;">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>WeWork</th>
+          <th>T3 #380</th>
+          <th>Industrious</th>
+          <th>Colonial #405</th>
+          <th>Wash. Pioneer</th>
+          <th>PwC Plaza</th>
+          <th>RSM Plaza</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Proposed SF</td>
+          <td>~350 SF</td>
+          <td>2,671 SF</td>
+          <td>317–227 SF</td>
+          <td>3,419 SF</td>
+          <td>2,869–3,744 SF</td>
+          <td>2,763 SF</td>
+          <td>3,222 SF</td>
+        </tr>
+        <tr>
+          <td>Asking Rate</td>
+          <td>All-in monthly</td>
+          <td>$29.00/SF</td>
+          <td>Monthly</td>
+          <td>$25.00/SF</td>
+          <td>$25.00/SF</td>
+          <td>$20.00/SF</td>
+          <td class="best">$18–19/SF</td>
+        </tr>
+        <tr>
+          <td>CAM + Tax</td>
+          <td>Included</td>
+          <td>$16.27/SF</td>
+          <td>Included</td>
+          <td>$12.33/SF</td>
+          <td>$15.82/SF</td>
+          <td>$14.08/SF</td>
+          <td>$15.66/SF</td>
+        </tr>
+        <tr>
+          <td>Gross Rate</td>
+          <td>$4,500–7,650/mo</td>
+          <td>$45.27/SF</td>
+          <td>$3,500–4,900/mo</td>
+          <td>$37.33/SF</td>
+          <td>$36.82/SF</td>
+          <td>$34.08/SF</td>
+          <td class="best">$33.66–34.66/SF</td>
+        </tr>
+        <tr>
+          <td>Parking Ratio</td>
+          <td>Nearby</td>
+          <td>0.38/1,000</td>
+          <td>Ramp C $150/mo</td>
+          <td>0.93/1,000</td>
+          <td class="best">2.56/1,000</td>
+          <td>0.91/1,000</td>
+          <td>2.09/1,000</td>
+        </tr>
+        <tr>
+          <td>Year Built</td>
+          <td>2019</td>
+          <td>2016</td>
+          <td>2016</td>
+          <td>1885</td>
+          <td>1980/2001</td>
+          <td>1987/2022</td>
+          <td>1968/2020</td>
+        </tr>
+        <tr>
+          <td>Submarket</td>
+          <td>North Loop</td>
+          <td>North Loop</td>
+          <td>North Loop</td>
+          <td>North Loop</td>
+          <td>Downtown</td>
+          <td>Downtown</td>
+          <td>Nicollet Mall</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="font-size:15px;font-weight:700;">phData</span>
+      <span style="opacity:0.4;">·</span>
+      <span style="font-size:18px;font-weight:900;color:#ff8080;font-family:Georgia,serif;">JLL</span>
+    </div>
+    <p>Prepared by JLL · Confidential · For phData use only · October 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
