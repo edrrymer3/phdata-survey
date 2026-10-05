@@ -67,7 +67,7 @@
 
     .property-photo { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border); background: #e2e8f0; }
     .property-photo iframe { width: 100%; height: 200px; border: none; }
-    .property-body { padding: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; overflow: hidden; }
+    .property-body { padding: 18px; display: flex; flex-direction: column; gap: 16px; overflow: hidden; }
     .suite-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; overflow-wrap: break-word; }
     .suite-table th, .suite-table td { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .prop-section { overflow: hidden; min-width: 0; }
@@ -647,7 +647,9 @@
         <table class="suite-table">
           <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
           <tr><td>356</td><td>2,983</td><td>$20&ndash;25</td><td>$12.33</td><td class="rate-highlight">$32&ndash;37/SF</td></tr>
+          <tr><td colspan="5" style="padding:4px 8px 8px;"><div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:7px 12px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;font-weight:700;color:#1e40af;">Suite 356 Monthly</span><span style="font-size:16px;font-weight:800;color:#1d4ed8;">~$9,282/mo</span></div></td></tr>
           <tr><td>405</td><td>3,419</td><td>$25.00</td><td>$12.33</td><td class="rate-highlight">$37.33/SF</td></tr>
+          <tr><td colspan="5" style="padding:4px 8px 8px;"><div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:7px 12px;display:flex;justify-content:space-between;align-items:center;"><span style="font-size:11px;font-weight:700;color:#1e40af;">Suite 405 Monthly</span><span style="font-size:16px;font-weight:800;color:#1d4ed8;">~$10,634/mo</span></div></td></tr>
         </table>
       </div>
       <div class="prop-section">
