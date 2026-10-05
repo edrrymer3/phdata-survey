@@ -67,8 +67,10 @@
 
     .property-photo { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border); background: #e2e8f0; }
     .property-photo iframe { width: 100%; height: 200px; border: none; }
-    .property-body { padding: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .prop-section { }
+    .property-body { padding: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; overflow: hidden; }
+    .suite-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; overflow-wrap: break-word; }
+    .suite-table th, .suite-table td { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .prop-section { overflow: hidden; min-width: 0; }
     .prop-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 10px; }
 
     .suite-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -433,10 +435,11 @@
             <div><div style="font-size:13px;font-weight:600;color:var(--text);">The Grind</div><div style="font-size:11px;color:var(--muted);">Cycle · Strength · Restore — North Loop</div></div>
             <span style="margin-left:auto;color:var(--blue);font-size:12px;">→</span>
           </a>
-          <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+          <a href="https://www.dariorestaurant.com/" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
             <span style="font-size:16px;">🍽️</span>
             <div><div style="font-size:13px;font-weight:600;color:var(--text);">Dario</div><div style="font-size:11px;color:var(--muted);">Restaurant · North Loop</div></div>
-          </div>
+            <span style="margin-left:auto;color:var(--blue);font-size:12px;">→</span>
+          </a>
         </div>
       </div>
     </div>
@@ -530,10 +533,11 @@
             <div><div style="font-size:13px;font-weight:600;color:var(--text);">The Grind</div><div style="font-size:11px;color:var(--muted);">Cycle · Strength · Restore — North Loop</div></div>
             <span style="margin-left:auto;color:var(--blue);font-size:12px;">→</span>
           </a>
-          <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+          <a href="https://www.dariorestaurant.com/" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
             <span style="font-size:16px;">🍽️</span>
             <div><div style="font-size:13px;font-weight:600;color:var(--text);">Dario</div><div style="font-size:11px;color:var(--muted);">Restaurant · North Loop</div></div>
-          </div>
+            <span style="margin-left:auto;color:var(--blue);font-size:12px;">→</span>
+          </a>
         </div>
       </div>
     </div>
