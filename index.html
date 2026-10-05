@@ -105,6 +105,22 @@
     footer p { font-size: 12px; opacity: 0.6; }
 
 
+
+    /* LIGHTBOX */
+    #lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999; flex-direction:column; align-items:center; justify-content:center; }
+    #lightbox.active { display:flex; }
+    #lightbox img { max-width:90vw; max-height:80vh; object-fit:contain; border-radius:8px; user-select:none; }
+    #lightbox-caption { color:#ccc; font-size:13px; margin-top:12px; text-align:center; }
+    #lightbox-counter { color:#888; font-size:12px; margin-top:4px; }
+    .lb-btn { position:fixed; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.15); border:none; color:white; font-size:32px; width:52px; height:52px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+    .lb-btn:hover { background:rgba(255,255,255,0.3); }
+    #lb-prev { left:16px; }
+    #lb-next { right:16px; }
+    #lb-close { position:fixed; top:16px; right:16px; background:rgba(255,255,255,0.15); border:none; color:white; font-size:22px; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    #lb-close:hover { background:rgba(255,255,255,0.3); }
+    .photo-strip img { cursor:pointer; transition:opacity 0.15s; }
+    .photo-strip img:hover { opacity:0.85; }
+
     /* CLIENT FEEDBACK */
     .client-feedback { margin: 0 18px 18px; }
     .client-feedback-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-bottom: 8px; }
@@ -952,6 +968,66 @@
     <p>Confidential · For phData use only · October 2026</p>
   </div>
 </footer>
+
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLightbox()">×</button>
+  <button class="lb-btn" id="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="" />
+  <div id="lb-caption"></div>
+  <div id="lb-counter"></div>
+  <button class="lb-btn" id="lb-next" onclick="lbNav(1)">›</button>
+</div>
+
+<script>
+var lbImages = [];
+var lbIndex = 0;
+
+function openLightbox(img) {
+  // Collect all images in the same photo-strip
+  var strip = img.closest('.photo-strip');
+  lbImages = Array.from(strip.querySelectorAll('img')).map(function(i) {
+    return { src: i.src, alt: i.alt || '' };
+  });
+  lbIndex = Array.from(strip.querySelectorAll('img')).indexOf(img);
+  showLbImage();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function showLbImage() {
+  var item = lbImages[lbIndex];
+  document.getElementById('lb-img').src = item.src;
+  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  showLbImage();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Wire up all photo strip images
+document.querySelectorAll('.photo-strip img').forEach(function(img) {
+  img.addEventListener('click', function() { openLightbox(this); });
+});
+</script>
 
 <script>
 async function submitFeedback(propId, propName, suiteName) {
