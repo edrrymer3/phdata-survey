@@ -65,6 +65,8 @@
     .tag-green { background: var(--green-light); color: var(--green); }
     .tag-gray { background: #f1f5f9; color: #475569; }
 
+    .property-photo { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border); background: #e2e8f0; }
+    .property-photo iframe { width: 100%; height: 200px; border: none; }
     .property-body { padding: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
     .prop-section { }
     .prop-section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 10px; }
@@ -100,6 +102,49 @@
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     footer p { font-size: 12px; opacity: 0.6; }
 
+
+    /* CLIENT FEEDBACK */
+    .client-feedback { margin: 0 18px 18px; }
+    .client-feedback-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--blue); margin-bottom: 8px; }
+    .feedback-input { width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 70px; color: var(--text); }
+    .feedback-input:focus { outline: none; border-color: var(--blue); }
+    .feedback-btn { margin-top: 8px; background: var(--blue); color: white; border: none; border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .feedback-btn:hover { background: #1d4ed8; }
+    .feedback-success { font-size: 12px; color: var(--green); margin-top: 6px; display: none; }
+
+    /* PHOTO SECTIONS */
+    .photo-section { padding: 0 18px 12px; }
+    .photo-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; padding-top: 12px; }
+    .photo-strip { display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .photo-strip img { height: 160px; width: auto; border-radius: 8px; flex-shrink: 0; object-fit: cover; }
+
+    /* BROKER NOTES */
+    .broker-notes {
+      margin: 0 18px 18px;
+      background: linear-gradient(135deg, #1e3a5f, #1a3055);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: block;
+    }
+    
+    .broker-notes-label {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.12em; color: #60a5fa; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .broker-notes-text {
+      font-size: 13px; color: #e2e8f0; line-height: 1.65;
+    }
+    .broker-photo-strip {
+      display: flex; gap: 8px; overflow-x: auto; padding: 0 18px 18px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .broker-photo {
+      flex-shrink: 0; width: 200px; height: 140px;
+      object-fit: cover; border-radius: 10px;
+      border: 2px solid var(--border);
+    }
+
     @media (max-width: 768px) {
       header { padding: 0 20px; }
       .hero { padding: 32px 20px; }
@@ -130,10 +175,10 @@
 <div class="hero">
   <div class="hero-inner">
     <h1>Office Market Survey</h1>
-    <p class="hero-sub">Minneapolis CBD · Prepared by JLL · October 2026</p>
+    <p class="hero-sub">Minneapolis CBD · October 2026</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-num">5</div>
         <div class="hero-stat-label">Properties Surveyed</div>
       </div>
       <div class="hero-stat">
@@ -152,32 +197,472 @@
   </div>
 </div>
 
-<!-- LOCATION OVERVIEW -->
-<div class="map-section">
-  <div class="map-inner">
-    <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:14px;">Property Locations</div>
-    <div class="map-grid">
-      <div class="map-pin"><div class="pin-num">1</div>WeWork — 729 Washington Ave N</div>
-      <div class="map-pin"><div class="pin-num">2</div>T3 — 323 Washington Ave N</div>
-      <div class="map-pin"><div class="pin-num">3</div>Industrious — 323 Washington Ave N, Ste 200</div>
-      <div class="map-pin"><div class="pin-num">4</div>Colonial Warehouse — 212 3rd Ave N</div>
-      <div class="map-pin"><div class="pin-num">5</div>Washington Pioneer — 100 Washington Ave S</div>
-      <div class="map-pin"><div class="pin-num">6</div>400 4th St S</div>
-      <div class="map-pin"><div class="pin-num">7</div>PwC Plaza — 45 S 7th St</div>
-      <div class="map-pin"><div class="pin-num">8</div>RSM Plaza West Tower — 801 Nicollet Mall</div>
+<!-- REQUIREMENTS & Q&A -->
+<div style="background:white;border-bottom:1px solid var(--border);padding:48px 40px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px;">Client Requirements</div>
+    <h2 style="font-size:22px;font-weight:700;color:var(--text);margin-bottom:6px;">phData — Office Requirements</h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px;">Required occupancy by <strong style="color:var(--jll-red);">November 2026</strong> &middot; Parking for 6 people</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <!-- Building Standards Q&A -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:16px;">Building Standards &amp; Infrastructure</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Building Management</div>
+            <div style="font-size:13px;color:var(--muted);">Building-managed &mdash; can provide audit evidence for network infrastructure, badge access, HVAC, generator, fire extinguishers</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Wi-Fi</div>
+            <div style="font-size:13px;color:var(--muted);">No password-protected building Wi-Fi — tenant provides own internet connection</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Failover Internet</div>
+            <div style="font-size:13px;color:var(--muted);">TBD — to be confirmed with building management</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Dedicated Suite Access</div>
+            <div style="font-size:13px;color:var(--muted);"><span style="color:var(--green);font-weight:700;">✓ Yes</span> &mdash; phData would have its own locked suite area</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Security Camera</div>
+            <div style="font-size:13px;color:var(--muted);">Not currently in proposed space, but building can install upon request</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Guest Check-In</div>
+            <div style="font-size:13px;color:var(--muted);">Security desk on site at building entrance &mdash; phData would manage own guest check-in within suite</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Mail &amp; Packages</div>
+            <div style="font-size:13px;color:var(--muted);">Building mail room receives and delivers to suite</div>
+          </div>
+
+          <div style="padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Conference Room A/V</div>
+            <div style="font-size:13px;color:var(--muted);"><span style="color:var(--green);font-weight:700;">✓ Yes</span> &mdash; TV and A/V tech included in conference rooms</div>
+          </div>
+
+          <div style="padding:12px 0;">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px;">Extra Conference Rooms</div>
+            <div style="font-size:13px;color:var(--muted);"><span style="color:var(--green);font-weight:700;">✓ Yes</span> &mdash; Ability to flex into additional building conference rooms when needed</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Key Requirements -->
+      <div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--blue);margin-bottom:16px;">Key Requirements</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">📅</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Move-In Deadline</div><div style="font-size:13px;color:var(--muted);">November 2026</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">📝</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Lease Term</div><div style="font-size:13px;color:var(--muted);">2–3 year lease preferred</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">🚗</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Parking</div><div style="font-size:13px;color:var(--muted);">6 reserved parking spaces required</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">🔒</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Security</div><div style="font-size:13px;color:var(--muted);">Dedicated locked suite &middot; Badge access &middot; Camera capability</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">🌐</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Internet</div><div style="font-size:13px;color:var(--muted);">Tenant-provided &middot; Failover line TBD</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">📋</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Compliance</div><div style="font-size:13px;color:var(--muted);">Audit evidence available for network, badge, HVAC, generator, fire suppression</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">🏙️</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Other Office Locations</div><div style="font-size:13px;color:var(--muted);">Team members in Atlanta, Chicago, and Denver</div></div>
+          </div>
+          <div style="background:var(--blue-light);border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:20px;">💻</span>
+            <div><div style="font-size:13px;font-weight:700;color:var(--text);">Inbound Shipments</div><div style="font-size:13px;color:var(--muted);">Occasional shipments of 5–7 laptops — building must accommodate package receiving</div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- INTERACTIVE MAP -->
+<div style="background:white;border-bottom:1px solid var(--border);">
+  <div style="max-width:1200px;margin:0 auto;padding:32px 40px;">
+    <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:14px;">Property Locations — Minneapolis CBD &amp; North Loop</div>
+    <div id="map" style="width:100%;height:420px;border-radius:12px;overflow:hidden;border:1px solid var(--border);"></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+            <div class="map-pin" style="cursor:pointer;" onclick="document.getElementById('prop2').scrollIntoView({behavior:'smooth'})"><div class="pin-num">1</div>T3 — 323 Washington Ave N</div>
+      <div class="map-pin" style="cursor:pointer;" onclick="document.getElementById('prop3').scrollIntoView({behavior:'smooth'})"><div class="pin-num">2</div>Industrious — 323 Washington Ave N</div>
+      <div class="map-pin" style="cursor:pointer;" onclick="document.getElementById('prop4').scrollIntoView({behavior:'smooth'})"><div class="pin-num">3</div>Colonial Warehouse — 212 3rd Ave N</div>
+      <div class="map-pin" style="cursor:pointer;" onclick="document.getElementById('prop1').scrollIntoView({behavior:'smooth'})"><div class="pin-num">4</div>WeWork — 729 Washington Ave N</div>
+      <div class="map-pin" style="cursor:pointer;" onclick="document.getElementById('propbaker').scrollIntoView({behavior:'smooth'})"><div class="pin-num">5</div>Baker Center — 706 &amp; 730 2nd Ave S</div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([44.9778, -93.2718], 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  var properties = [
+    { num: 1, name: 'WeWork', addr: '729 Washington Ave N', lat: 44.9850, lng: -93.2820 },
+    { num: 2, name: 'T3 Minneapolis', addr: '323 Washington Ave N', lat: 44.9840, lng: -93.2792 },
+    { num: 3, name: 'Industrious', addr: '323 Washington Ave N, Ste 200', lat: 44.9839, lng: -93.2790 },
+    { num: 4, name: 'Colonial Warehouse', addr: '212 3rd Ave N', lat: 44.9833, lng: -93.2775 },
+    { num: 5, name: 'Washington Pioneer', addr: '100 Washington Ave S', lat: 44.9793, lng: -93.2752 },
+    { num: 7, name: 'PwC Plaza', addr: '45 S 7th St', lat: 44.9742, lng: -93.2728 },
+    { num: 8, name: 'RSM Plaza West Tower', addr: '801 Nicollet Mall', lat: 44.9756, lng: -93.2740 },
+    { num: 9, name: 'Baker Center', addr: '706 & 730 2nd Ave S', lat: 44.9748, lng: -93.2710 },
+  ];
+
+  properties.forEach(function(p) {
+    var icon = L.divIcon({
+      className: '',
+      html: '<div style="width:28px;height:28px;background:#2563eb;border:2px solid white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white;box-shadow:0 2px 8px rgba(0,0,0,0.3);">' + p.num + '</div>',
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+    });
+    L.marker([p.lat, p.lng], { icon: icon })
+      .addTo(map)
+      .bindPopup('<strong>' + p.name + '</strong><br/>' + p.addr);
+  });
+</script>
+
 <!-- PROPERTIES -->
 <div class="properties">
   <div class="section-title">Property Details</div>
-  <div class="section-sub">8 options across the Minneapolis CBD and North Loop</div>
+  <div class="section-sub">5 options across the Minneapolis CBD and North Loop</div>
 
-  <!-- 1. WeWork -->
-  <div class="property-card">
+  <!-- 1. T3 -->
+  <div class="property-card" id="prop2" style="scroll-margin-top:80px;">
     <div class="property-header">
       <div class="property-num">1</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">T3 Minneapolis</div>
+          <div class="property-address">323 Washington Ave N, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">49,216 SF Available</span>
+          <span class="tag tag-gray">Built 2016</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 380 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/t3-suite1.jpg" />
+        <img src="imgs/t3-suite2.jpg" />
+        <img src="imgs/t3-suite3.jpg" />
+        <img src="imgs/t3-suite4.jpg" />
+        <img src="imgs/t3-suite5.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">🏢 Building Amenities</div>
+      <div class="photo-strip">
+        <img src="imgs/t3-gym.jpg" />
+        <img src="imgs/t3-gym2.jpg" />
+        <img src="imgs/t3-lockers.jpg" />
+        <img src="imgs/t3-bikes.jpg" />
+        <img src="imgs/t3-conf.jpg" />
+        <img src="imgs/t3-lounge.jpg" />
+        <img src="imgs/t3-roof1.jpg" />
+        <img src="imgs/t3-roof2.jpg" />
+        <img src="imgs/t3-roof3.jpg" />
+        <img src="imgs/p6_i2_585x401.png" />
+        <img src="imgs/p6_i3_585x401.png" />
+        <img src="imgs/p6_i5_845x615.png" />
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suite</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>380</td><td>2,671</td><td>$29.00</td><td>$16.27</td><td class="rate-highlight">$45.27/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">LaSalle Investment Management</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">221,552 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Available SF</span><span class="meta-val">49,216 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.38/1,000 SF &middot; Covered 65 / Surface 20</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Rooftop deck</span>
+          <span class="amenity">Fitness center</span>
+          <span class="amenity">Bike storage</span>
+          <span class="amenity">On-site retail</span>
+          <span class="amenity">🏋️ Fitness center in building</span>
+          <span class="amenity">☕ Frgmnt Coffee on-site</span>
+          <span class="amenity">🎯 Darts bar on-site</span>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Nearby</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <a href="https://www.thegrindmpls.com" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+            <span style="font-size:16px;">🏋️</span>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">The Grind</div><div style="font-size:11px;color:var(--muted);">Cycle · Strength · Restore — North Loop</div></div>
+            <span style="margin-left:auto;color:var(--blue);font-size:12px;">→</span>
+          </a>
+          <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+            <span style="font-size:16px;">🍽️</span>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Dario</div><div style="font-size:11px;color:var(--muted);">Restaurant · North Loop</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="client-feedback">
+      <div class="client-feedback-label">💬 Your Feedback on T3 Minneapolis</div>
+      <textarea class="feedback-input" id="fb-prop2" placeholder="Share your thoughts on this space — what you liked, concerns, questions..."></textarea>
+      <br/>
+      <button class="feedback-btn" onclick="submitFeedback('prop2', 'T3 Minneapolis', 'Suite 380')">Submit Feedback</button>
+      <div class="feedback-success" id="fb-ok-prop2">✓ Feedback sent — Eddie will follow up!</div>
+    </div>
+    <div class="broker-notes" id="notes-prop2"><div class="broker-notes-label">&#11088; Broker Notes &mdash; T3</div><div class="broker-notes-text" id="notes-text-prop2">All elevators are destination dispatch — security must grant access to bring guests up to the floor. Employees will receive badge access cards for building entry. 📦 Mail and packages received in the building package room — tenant picks up.</div></div>
+    <div class="broker-photo-strip" id="photos-prop2"></div>
+  </div>
+
+  <!-- 2. Industrious -->
+  <div class="property-card" id="prop3" style="scroll-margin-top:80px;">
+    <div class="property-header">
+      <div class="property-num">2</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">Industrious</div>
+          <div class="property-address">323 Washington Ave N, Suite 200, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-blue">Coworking</span>
+          <span class="tag tag-gray">Inside T3</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 16 &amp; 18 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/ind-suite1.jpg" />
+        <img src="imgs/ind-suite2.jpg" />
+        <img src="imgs/ind-suite3.jpg" />
+        <img src="imgs/ind-suite4.jpg" />
+        <img src="imgs/ind-view.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">🏢 Building Amenities (shared with T3)</div>
+      <div class="photo-strip">
+        <img src="imgs/ind-conf.jpg" />
+        <img src="imgs/ind-phone.jpg" />
+        <img src="imgs/ind-access.jpg" />
+        <img src="imgs/ind-common.jpg" />
+        <img src="imgs/t3-gym.jpg" />
+        <img src="imgs/t3-gym2.jpg" />
+        <img src="imgs/t3-lockers.jpg" />
+        <img src="imgs/t3-bikes.jpg" />
+        <img src="imgs/t3-roof1.jpg" />
+        <img src="imgs/t3-roof2.jpg" />
+        <img src="imgs/t3-roof3.jpg" />
+        <img src="imgs/p7_i2_539x370.png" />
+        <img src="imgs/p7_i3_787x540.png" />
+        <img src="imgs/p7_i5_871x739.png" />
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Available Offices</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>Size</th><th>Monthly Rate</th></tr>
+          <tr><td>16</td><td>317 SF &middot; 10-person</td><td class="rate-highlight">$4,900/mo</td></tr>
+          <tr><td>18</td><td>227 SF &middot; 7-person</td><td class="rate-highlight">$3,500/mo</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Total SF</span><span class="meta-val">34,000 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Available</span><span class="meta-val">544 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">Ramp C &middot; $150/month</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Conference room access</span>
+          <span class="amenity">Fitness center</span>
+          <span class="amenity">Showers</span>
+          <span class="amenity">Inside T3 building</span>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Nearby</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <a href="https://www.thegrindmpls.com" target="_blank" style="display:flex;align-items:center;gap:8px;text-decoration:none;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+            <span style="font-size:16px;">🏋️</span>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">The Grind</div><div style="font-size:11px;color:var(--muted);">Cycle · Strength · Restore — North Loop</div></div>
+            <span style="margin-left:auto;color:var(--blue);font-size:12px;">→</span>
+          </a>
+          <div style="display:flex;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:8px 12px;">
+            <span style="font-size:16px;">🍽️</span>
+            <div><div style="font-size:13px;font-weight:600;color:var(--text);">Dario</div><div style="font-size:11px;color:var(--muted);">Restaurant · North Loop</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="client-feedback">
+      <div class="client-feedback-label">💬 Your Feedback on Industrious</div>
+      <textarea class="feedback-input" id="fb-prop3" placeholder="Share your thoughts on this space — what you liked, concerns, questions..."></textarea>
+      <br/>
+      <button class="feedback-btn" onclick="submitFeedback('prop3', 'Industrious', 'Suite 16 / 18')">Submit Feedback</button>
+      <div class="feedback-success" id="fb-ok-prop3">✓ Feedback sent — Eddie will follow up!</div>
+    </div>
+    <div class="broker-notes" id="notes-prop3"><div class="broker-notes-label">&#11088; Broker Notes &mdash; Industrious</div><div class="broker-notes-text" id="notes-text-prop3">🍳 Free breakfast every morning · ☕ Complimentary coffee and beverages daily · 🍺 Happy hour every Thursday — all included. 🌐 Internet provided by Isofy. 🛎️ Guest check-in available through Industrious. 🕐 Staffed M–F, 8am–5pm. 📦 Mail and packages brought up and sorted by Industrious staff. 🎯 4 conference rooms available — tenants receive a monthly allotment of hours to reserve. 📞 10 private phone rooms — first come first served, no reservation needed. 🏢 5 Access Offices available to rent by the day (~$100/day) for focused work or overflow space. 🖨️ Shared printer station with Xerox copier and secure Shred-It document disposal.
+
+<br/><br/><strong style="color:#60a5fa;">🌐 InfoTech Services — What's Included:</strong><br/>
+• 500 Mbps symmetrical bandwidth<br/>
+• Private VLAN (wired + Wi-Fi) for your team<br/>
+• Unlimited printing (color and black)<br/>
+• Unique Wi-Fi credentials per team member<br/>
+• Primary + backup internet circuit with auto failover<br/>
+• SOC2 &amp; ISO27001 compliant network, audited by independent third party<br/>
+• Own VLAN — wireless and wired interconnected, inter-VLAN traffic denied<br/>
+• 15 private static IP addresses reserved for your network<br/>
+• Public static IP available at $20/mo · Dedicated phone line at $60/mo<br/>
+• Own IP phone service allowed (test before committing to carrier)</div></div>
+    <div class="broker-photo-strip" id="photos-prop3"></div>
+  </div>
+
+  <!-- 3. Colonial Warehouse -->
+  <div class="property-card" id="prop4" style="scroll-margin-top:80px;">
+    <div class="property-header">
+      <div class="property-num">3</div>
+      <div class="property-title-bar">
+        <div>
+          <div class="property-name">Colonial Warehouse</div>
+          <div class="property-address">212 3rd Ave N, Minneapolis, MN 55401</div>
+        </div>
+        <div class="property-tags">
+          <span class="tag tag-green">28,850 SF Available</span>
+          <span class="tag tag-gray">Built 1885</span>
+          <span class="tag tag-gray">North Loop</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 356 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/colonial-s276.jpg" />
+        <img src="imgs/colonial-s277.jpg" />
+        <img src="imgs/colonial-s278.jpg" />
+        <img src="imgs/colonial-s279.jpg" />
+        <img src="imgs/colonial-s280.jpg" />
+        <img src="imgs/colonial-s281.jpg" />
+        <img src="imgs/colonial-s283.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 405 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/colonial-405-284.jpg" />
+        <img src="imgs/colonial-405-285.jpg" />
+        <img src="imgs/colonial-405-286.jpg" />
+        <img src="imgs/colonial-405-287.jpg" />
+        <img src="imgs/colonial-405-288.jpg" />
+        <img src="imgs/colonial-405-289.jpg" />
+        <img src="imgs/colonial-405-290.jpg" />
+        <img src="imgs/colonial-405-291.jpg" />
+        <img src="imgs/colonial-405-292.jpg" />
+        <img src="imgs/colonial-405-293.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">🏢 Building Amenities</div>
+      <div class="photo-strip">
+        <img src="imgs/colonial-gym.jpg" />
+        <img src="imgs/colonial-mail.jpg" />
+        <img src="imgs/colonial-a268.jpg" />
+        <img src="imgs/colonial-a269.jpg" />
+        <img src="imgs/colonial-a270.jpg" />
+        <img src="imgs/colonial-a271.jpg" />
+        <img src="imgs/colonial-a272.jpg" />
+        <img src="imgs/colonial-a273.jpg" />
+        <img src="imgs/colonial-a274.jpg" />
+        <img src="imgs/colonial-a275.jpg" />
+        <img src="imgs/p8_i2_585x401.png" />
+        <img src="imgs/p8_i5_717x356.png" />
+        <img src="imgs/p8_i6_558x677.png" />
+      </div>
+    </div>
+    <div class="property-body">
+      <div class="prop-section">
+        <div class="prop-section-title">Proposed Suites</div>
+        <table class="suite-table">
+          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>356</td><td>2,983</td><td>$20&ndash;25</td><td>$12.33</td><td class="rate-highlight">$32&ndash;37/SF</td></tr>
+          <tr><td>405</td><td>3,419</td><td>$25.00</td><td>$12.33</td><td class="rate-highlight">$37.33/SF</td></tr>
+        </table>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Building Info</div>
+        <div class="building-meta">
+          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Asana Partners</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">248,195 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.93/1,000 &middot; Surface $200/mo &middot; Additional covered parking via contract with adjacent condo buildings at $250/mo</span></div>
+        </div>
+      </div>
+      <div class="prop-section">
+        <div class="prop-section-title">Amenities</div>
+        <div class="amenity-list">
+          <span class="amenity">Fitness center + showers</span>
+          <span class="amenity">Cedar Lake Trail access</span>
+          <span class="amenity">Bike storage</span>
+          <span class="amenity">Near Target Field</span>
+          <span class="amenity">🥗 Sweetgreen on-site</span>
+        </div>
+      </div>
+    </div>
+    <div class="client-feedback">
+      <div class="client-feedback-label">💬 Your Feedback on Colonial Warehouse</div>
+      <textarea class="feedback-input" id="fb-prop4" placeholder="Share your thoughts on this space — what you liked, concerns, questions..."></textarea>
+      <br/>
+      <button class="feedback-btn" onclick="submitFeedback('prop4', 'Colonial Warehouse', 'Suite 356 / 405')">Submit Feedback</button>
+      <div class="feedback-success" id="fb-ok-prop4">✓ Feedback sent — Eddie will follow up!</div>
+    </div>
+    <div class="broker-notes" id="notes-prop4"><div class="broker-notes-label">&#11088; Broker Notes &mdash; Colonial Warehouse</div><div class="broker-notes-text" id="notes-text-prop4">📦 Laptop shipments (5–7 units): need to confirm dedicated pick-up/drop-off point with building management prior to move-in.</div></div>
+    <div class="broker-photo-strip" id="photos-prop4"></div>
+  </div>
+
+  <!-- 4. WeWork -->
+  <div class="property-card" id="prop1" style="scroll-margin-top:80px;">
+    <div class="property-header">
+      <div class="property-num">4</div>
       <div class="property-title-bar">
         <div>
           <div class="property-name">WeWork</div>
@@ -190,15 +675,49 @@
         </div>
       </div>
     </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 06-12 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/wework-suite1.jpg" />
+        <img src="imgs/wework-suite2.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 07-134 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/wework-134a.jpg" />
+        <img src="imgs/wework-134b.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 07-137 — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/wework-137a.jpg" />
+        <img src="imgs/wework-137b.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">🏢 Building Amenities</div>
+      <div class="photo-strip">
+        <img src="imgs/wework-common.jpg" />
+        <img src="imgs/wework-market.jpg" />
+        <img src="imgs/wework-conf.jpg" />
+        <img src="imgs/wework-booths.jpg" />
+        <img src="imgs/p5_i2_650x446.png" />
+        <img src="imgs/p5_i3_670x460.png" />
+        <img src="imgs/p5_i5_799x696.png" />
+      </div>
+    </div>
     <div class="property-body">
       <div class="prop-section">
         <div class="prop-section-title">Available Suites</div>
         <table class="suite-table">
           <tr><th>Suite</th><th>Desks</th><th>Monthly Rate</th></tr>
+          <tr><td>06-12</td><td>Max 24</td><td class="rate-highlight">$3,485/mo <span style="font-size:10px;color:var(--muted);">(24-mo term)</span></td></tr>
           <tr><td>07-134</td><td>Max 14</td><td class="rate-highlight">$4,500/mo</td></tr>
           <tr><td>07-137</td><td>Max 24</td><td class="rate-highlight">$7,650/mo</td></tr>
         </table>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;">12-month rate · All-inclusive</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">12-month rate &middot; All-inclusive</div>
       </div>
       <div class="prop-section">
         <div class="prop-section-title">Building Info</div>
@@ -214,7 +733,6 @@
         <div class="amenity-list">
           <span class="amenity">Bookable meeting rooms</span>
           <span class="amenity">Phone booths</span>
-          <span class="amenity">Outdoor terrace</span>
           <span class="amenity">Rooftop deck + grills</span>
           <span class="amenity">Fitness center</span>
           <span class="amenity">Bike storage</span>
@@ -222,356 +740,188 @@
         </div>
       </div>
     </div>
+    <div class="client-feedback">
+      <div class="client-feedback-label">💬 Your Feedback on WeWork</div>
+      <textarea class="feedback-input" id="fb-prop1" placeholder="Share your thoughts on this space — what you liked, concerns, questions..."></textarea>
+      <br/>
+      <button class="feedback-btn" onclick="submitFeedback('prop1', 'WeWork', 'Suite 06-12 / 07-134 / 07-137')">Submit Feedback</button>
+      <div class="feedback-success" id="fb-ok-prop1">✓ Feedback sent — Eddie will follow up!</div>
+    </div>
+    <div class="broker-notes" id="notes-prop1"><div class="broker-notes-label">&#11088; Broker Notes &mdash; WeWork</div><div class="broker-notes-text" id="notes-text-prop1">☕ Espresso and drinks on tap at no charge — available in the common area on every floor. 📞 Acoustic phone booths available throughout common areas. 🏛️ Common conference rooms reservable — tenants receive a monthly credit allotment. 🌐 Wi-Fi provided directly through WeWork — no separate internet setup needed. 🛎️ Guest check-in at WeWork front desk.</div></div>
+    <div class="broker-photo-strip" id="photos-prop1"></div>
   </div>
 
-  <!-- 2. T3 -->
-  <div class="property-card">
-    <div class="property-header">
-      <div class="property-num">2</div>
-      <div class="property-title-bar">
-        <div>
-          <div class="property-name">T3 Minneapolis</div>
-          <div class="property-address">323 Washington Ave N, Minneapolis, MN 55401</div>
-        </div>
-        <div class="property-tags">
-          <span class="tag tag-green">49,216 SF Available</span>
-          <span class="tag tag-gray">Built 2016</span>
-          <span class="tag tag-gray">North Loop</span>
-        </div>
-      </div>
-    </div>
-    <div class="property-body">
-      <div class="prop-section">
-        <div class="prop-section-title">Proposed Suite</div>
-        <table class="suite-table">
-          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
-          <tr><td>380</td><td>2,671</td><td>$29.00</td><td>$16.27</td><td class="rate-highlight">$45.27/SF</td></tr>
-        </table>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Building Info</div>
-        <div class="building-meta">
-          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">LaSalle Inv. Mgmt</span></div>
-          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">221,552 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Available SF</span><span class="meta-val">49,216 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.38/1,000 SF · Covered 65 / Surface 20</span></div>
-        </div>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Amenities</div>
-        <div class="amenity-list">
-          <span class="amenity">Rooftop deck</span>
-          <span class="amenity">Fitness center</span>
-          <span class="amenity">Bike storage</span>
-          <span class="amenity">On-site retail</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. Industrious -->
-  <div class="property-card">
-    <div class="property-header">
-      <div class="property-num">3</div>
-      <div class="property-title-bar">
-        <div>
-          <div class="property-name">Industrious</div>
-          <div class="property-address">323 Washington Ave N, Suite 200, Minneapolis, MN 55401</div>
-        </div>
-        <div class="property-tags">
-          <span class="tag tag-blue">Coworking</span>
-          <span class="tag tag-gray">Inside T3</span>
-          <span class="tag tag-gray">North Loop</span>
-        </div>
-      </div>
-    </div>
-    <div class="property-body">
-      <div class="prop-section">
-        <div class="prop-section-title">Available Offices</div>
-        <table class="suite-table">
-          <tr><th>Suite</th><th>Size</th><th>Monthly Rate</th></tr>
-          <tr><td>16</td><td>317 SF · 8-person</td><td class="rate-highlight">$4,900/mo</td></tr>
-          <tr><td>18</td><td>227 SF · 5-person</td><td class="rate-highlight">$3,500/mo</td></tr>
-        </table>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Building Info</div>
-        <div class="building-meta">
-          <div class="building-meta-row"><span class="meta-label">Total SF</span><span class="meta-val">34,000 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Available</span><span class="meta-val">544 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">Ramp C · $150/month</span></div>
-        </div>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Amenities</div>
-        <div class="amenity-list">
-          <span class="amenity">Conference room access</span>
-          <span class="amenity">Fitness center</span>
-          <span class="amenity">Showers</span>
-          <span class="amenity">Inside T3 building</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 4. Colonial Warehouse -->
-  <div class="property-card">
-    <div class="property-header">
-      <div class="property-num">4</div>
-      <div class="property-title-bar">
-        <div>
-          <div class="property-name">Colonial Warehouse</div>
-          <div class="property-address">212 3rd Ave N, Minneapolis, MN 55401</div>
-        </div>
-        <div class="property-tags">
-          <span class="tag tag-green">28,850 SF Available</span>
-          <span class="tag tag-gray">Built 1885</span>
-          <span class="tag tag-gray">North Loop</span>
-        </div>
-      </div>
-    </div>
-    <div class="property-body">
-      <div class="prop-section">
-        <div class="prop-section-title">Proposed Suites</div>
-        <table class="suite-table">
-          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
-          <tr><td>356</td><td>2,983</td><td>$20–25</td><td>$12.33</td><td class="rate-highlight">$32–37/SF</td></tr>
-          <tr><td>405</td><td>3,419</td><td>$25.00</td><td>$12.33</td><td class="rate-highlight">$37.33/SF</td></tr>
-        </table>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Building Info</div>
-        <div class="building-meta">
-          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Asana Partners</span></div>
-          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">248,195 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.93/1,000 · Surface $200/mo</span></div>
-        </div>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Amenities</div>
-        <div class="amenity-list">
-          <span class="amenity">Fitness center + showers</span>
-          <span class="amenity">Cedar Lake Trail access</span>
-          <span class="amenity">Bike storage</span>
-          <span class="amenity">Near Target Field</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. Washington Pioneer -->
-  <div class="property-card">
+  <!-- 5. Baker Center -->
+  <div class="property-card" id="propbaker" style="scroll-margin-top:80px;">
     <div class="property-header">
       <div class="property-num">5</div>
       <div class="property-title-bar">
         <div>
-          <div class="property-name">Washington Pioneer</div>
-          <div class="property-address">100 Washington Ave S, Minneapolis, MN 55401</div>
+          <div class="property-name">Baker Center</div>
+          <div class="property-address">706 &amp; 730 2nd Ave S, Minneapolis, MN 55402</div>
         </div>
         <div class="property-tags">
-          <span class="tag tag-green">63,553 SF Available</span>
-          <span class="tag tag-gray">Built 1980/2001</span>
+          <span class="tag tag-green">68,860 SF Available (706)</span>
+          <span class="tag tag-gray">Built 1926/2017</span>
           <span class="tag tag-gray">Downtown</span>
         </div>
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 350 (706 Building) — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/baker-350-325.jpg" />
+        <img src="imgs/baker-350-326.jpg" />
+        <img src="imgs/baker-350-327.jpg" />
+        <img src="imgs/baker-350-328.jpg" />
+        <img src="imgs/baker-350-329.jpg" />
+        <img src="imgs/baker-350-330.jpg" />
+        <img src="imgs/baker-350-331.jpg" />
+        <img src="imgs/baker-350-332.jpg" />
+        <img src="imgs/baker-350-333.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">📸 Suite 810 (730 Building) — Tour Photos</div>
+      <div class="photo-strip">
+        <img src="imgs/baker-810-316.jpg" />
+        <img src="imgs/baker-810-317.jpg" />
+        <img src="imgs/baker-810-318.jpg" />
+        <img src="imgs/baker-810-319.jpg" />
+        <img src="imgs/baker-810-320.jpg" />
+        <img src="imgs/baker-810-321.jpg" />
+        <img src="imgs/baker-810-322.jpg" />
+        <img src="imgs/baker-810-323.jpg" />
+        <img src="imgs/baker-810-324.jpg" />
+      </div>
+    </div>
+    <div class="photo-section">
+      <div class="photo-section-label">🏢 Building Amenities (13th Floor + 8th Floor)</div>
+      <div class="photo-strip">
+        <img src="imgs/baker-8f1.jpg" />
+        <img src="imgs/baker-8f2.jpg" />
+        <img src="imgs/baker-a308.jpg" />
+        <img src="imgs/baker-a309.jpg" />
+        <img src="imgs/baker-a310.jpg" />
+        <img src="imgs/baker-a311.jpg" />
+        <img src="imgs/baker-a312.jpg" />
+        <img src="imgs/baker-a313.jpg" />
+        <img src="imgs/baker-wellness.jpg" />
+        <img src="imgs/baker-gym1.jpg" />
+        <img src="imgs/baker-gym2.jpg" />
+        <img src="imgs/p12_i2_585x401.png" />
+        <img src="imgs/p12_i3_585x401.png" />
+        <img src="imgs/p12_i5_971x694.png" />
+        <img src="imgs/p12_i6_962x600.png" />
       </div>
     </div>
     <div class="property-body">
       <div class="prop-section">
         <div class="prop-section-title">Proposed Suites</div>
         <table class="suite-table">
-          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
-          <tr><td>1306</td><td>2,903</td><td>$25.00</td><td>$15.82</td><td class="rate-highlight">$36.82/SF</td></tr>
-          <tr><td>1330</td><td>3,744</td><td>$25.00</td><td>$15.82</td><td class="rate-highlight">$36.82/SF</td></tr>
-          <tr><td>1910</td><td>2,869</td><td>$25.00</td><td>$15.82</td><td class="rate-highlight">$36.82/SF</td></tr>
-        </table>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Building Info</div>
-        <div class="building-meta">
-          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Pioneer Acquisitions LLC</span></div>
-          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">531,040 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">2.56/1,000 · Covered 431 / Surface 58</span></div>
-        </div>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Amenities</div>
-        <div class="amenity-list">
-          <span class="amenity">Rustica Bakery on-site</span>
-          <span class="amenity">Lobby renovation planned</span>
-          <span class="amenity">Nomikai Lounge incoming</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7. PwC Plaza -->
-  <div class="property-card">
-    <div class="property-header">
-      <div class="property-num">7</div>
-      <div class="property-title-bar">
-        <div>
-          <div class="property-name">PwC Plaza</div>
-          <div class="property-address">45 S 7th St, Minneapolis, MN 55402</div>
-        </div>
-        <div class="property-tags">
-          <span class="tag tag-green">209,612 SF Available</span>
-          <span class="tag tag-gray">Built 1987/2022</span>
-          <span class="tag tag-gray">Downtown</span>
-        </div>
-      </div>
-    </div>
-    <div class="property-body">
-      <div class="prop-section">
-        <div class="prop-section-title">Proposed Suite</div>
-        <table class="suite-table">
-          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
-          <tr><td>420</td><td>2,763</td><td>$20.00</td><td>$14.08</td><td class="rate-highlight">$34.08/SF</td></tr>
+          <tr><th>Suite</th><th>Building</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
+          <tr><td>350</td><td>706 Baker</td><td>3,222</td><td>$17.50</td><td>$15.36</td><td class="rate-highlight">$32.86/SF</td></tr>
+          <tr><td colspan="6" style="padding:6px 8px;font-size:11px;color:var(--muted);">Est. monthly (Suite 350): <strong style="color:var(--blue);">~$8,822/mo</strong> · Furnished spec suite · Glass offices · Full kitchen</td></tr>
+          <tr><td>810</td><td>730 Baker</td><td>3,262</td><td>$17.50</td><td>$11.37</td><td class="rate-highlight">$28.87/SF</td></tr>
         </table>
       </div>
       <div class="prop-section">
         <div class="prop-section-title">Building Info</div>
         <div class="building-meta">
           <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Franklin Street Properties</span></div>
-          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">346,516 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">0.91/1,000 · Covered 315</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF (706)</span><span class="meta-val">126,972 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Building SF (730)</span><span class="meta-val">350,000 SF</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking (706)</span><span class="meta-val">2.22/1,000 SF &middot; Covered 215 ($265/mo)</span></div>
+          <div class="building-meta-row"><span class="meta-label">Parking (730)</span><span class="meta-val">0.61/1,000 SF &middot; Surface available</span></div>
         </div>
       </div>
       <div class="prop-section">
         <div class="prop-section-title">Amenities</div>
         <div class="amenity-list">
-          <span class="amenity">On-site restaurant</span>
-          <span class="amenity">Tenant lounge</span>
-          <span class="amenity">Fitness center</span>
-          <span class="amenity">Conference spaces</span>
+          <span class="amenity">🏙️ Dedicated amenity floor</span>
+          <span class="amenity">🌤️ Rooftop deck with great views</span>
+          <span class="amenity">🏛️ Boardrooms</span>
+          <span class="amenity">📚 Training center</span>
+          <span class="amenity">🏋️ Baker Center Wellness (full gym + showers)</span>
+          <span class="amenity">Tenant lounge spaces</span>
         </div>
       </div>
     </div>
+    <div class="client-feedback">
+      <div class="client-feedback-label">💬 Your Feedback on Baker Center</div>
+      <textarea class="feedback-input" id="fb-propbaker" placeholder="Share your thoughts on this space — what you liked, concerns, questions..."></textarea>
+      <br/>
+      <button class="feedback-btn" onclick="submitFeedback('propbaker', 'Baker Center', 'Suite 350 / 810')">Submit Feedback</button>
+      <div class="feedback-success" id="fb-ok-propbaker">✓ Feedback sent — Eddie will follow up!</div>
+    </div>
+    <div class="broker-notes" id="notes-propbaker"><div class="broker-notes-label">&#11088; Broker Notes &mdash; Baker Center</div><div class="broker-notes-text" id="notes-text-propbaker">💼 Suite 350 (706 Building · 3,222 SF): Dedicated IT/server closet included — pre-wired with network patch panel and cable runs. Suite 810 (730 Building · 3,262 SF): Fully furnished spec suite. Total headcount 20 · 4 private offices · 1 conference room · 16 open workstations · 1 pantry. Exclusive 8th floor amenities included. 🏙️ All amenities located on the 13th floor — dedicated amenity floor with rooftop deck, boardrooms, training center, tenant lounge, and Baker Wellness Center. 📚 Training center seats up to 100 people — demising wall can reduce to a private 20–30 person space for phData team events or all-hands. 📦 Laptop shipments (5–7 units): need to confirm dedicated pick-up/drop-off point with building management prior to move-in.</div></div>
+    <div class="broker-photo-strip" id="photos-propbaker"></div>
   </div>
-
-  <!-- 8. RSM Plaza -->
-  <div class="property-card">
-    <div class="property-header">
-      <div class="property-num">8</div>
-      <div class="property-title-bar">
-        <div>
-          <div class="property-name">RSM Plaza West Tower</div>
-          <div class="property-address">801 Nicollet Mall, Minneapolis, MN 55402</div>
-        </div>
-        <div class="property-tags">
-          <span class="tag tag-green">56,779 SF Available</span>
-          <span class="tag tag-gray">Built 1968/2020</span>
-          <span class="tag tag-gray">Nicollet Mall</span>
-        </div>
-      </div>
-    </div>
-    <div class="property-body">
-      <div class="prop-section">
-        <div class="prop-section-title">Proposed Suite</div>
-        <table class="suite-table">
-          <tr><th>Suite</th><th>SF</th><th>Asking</th><th>CAM+Tax</th><th>Gross</th></tr>
-          <tr><td>350</td><td>3,222</td><td>$18–19</td><td>$15.66</td><td class="rate-highlight">$33.66–34.66/SF</td></tr>
-        </table>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Building Info</div>
-        <div class="building-meta">
-          <div class="building-meta-row"><span class="meta-label">Owner</span><span class="meta-val">Golub & Company</span></div>
-          <div class="building-meta-row"><span class="meta-label">Building SF</span><span class="meta-val">415,238 SF</span></div>
-          <div class="building-meta-row"><span class="meta-label">Parking</span><span class="meta-val">2.09/1,000 · Covered 867</span></div>
-        </div>
-      </div>
-      <div class="prop-section">
-        <div class="prop-section-title">Amenities</div>
-        <div class="amenity-list">
-          <span class="amenity">Upscale on-site restaurant</span>
-          <span class="amenity">Rooftop terrace</span>
-          <span class="amenity">Tenant lounge</span>
-          <span class="amenity">Fitness center</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
 
 <!-- COMPARISON TABLE -->
 <div class="comparison">
   <div class="section-title">Side-by-Side Comparison</div>
-  <div class="section-sub">Key financial metrics across all surveyed properties</div>
+  <div class="section-sub">Key financial metrics across all 5 properties</div>
   <div style="overflow-x:auto;">
     <table class="comp-table">
       <thead>
         <tr>
           <th>Metric</th>
-          <th>WeWork</th>
           <th>T3 #380</th>
           <th>Industrious</th>
           <th>Colonial #405</th>
-          <th>Wash. Pioneer</th>
-          <th>PwC Plaza</th>
-          <th>RSM Plaza</th>
+          <th>WeWork</th>
+          <th>Baker Ctr</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>Proposed SF</td>
-          <td>~350 SF</td>
           <td>2,671 SF</td>
           <td>317–227 SF</td>
           <td>3,419 SF</td>
-          <td>2,869–3,744 SF</td>
-          <td>2,763 SF</td>
-          <td>3,222 SF</td>
+          <td>~350 SF</td>
+          <td>3,222–3,262 SF</td>
         </tr>
         <tr>
           <td>Asking Rate</td>
-          <td>All-in monthly</td>
           <td>$29.00/SF</td>
           <td>Monthly</td>
           <td>$25.00/SF</td>
-          <td>$25.00/SF</td>
-          <td>$20.00/SF</td>
-          <td class="best">$18–19/SF</td>
+          <td>All-in monthly</td>
+          <td class="best">$17.50/SF</td>
         </tr>
         <tr>
           <td>CAM + Tax</td>
-          <td>Included</td>
           <td>$16.27/SF</td>
           <td>Included</td>
           <td>$12.33/SF</td>
-          <td>$15.82/SF</td>
-          <td>$14.08/SF</td>
-          <td>$15.66/SF</td>
+          <td>Included</td>
+          <td>$11.37–15.36/SF</td>
         </tr>
         <tr>
           <td>Gross Rate</td>
-          <td>$4,500–7,650/mo</td>
           <td>$45.27/SF</td>
           <td>$3,500–4,900/mo</td>
           <td>$37.33/SF</td>
-          <td>$36.82/SF</td>
-          <td>$34.08/SF</td>
-          <td class="best">$33.66–34.66/SF</td>
+          <td>$4,500–7,650/mo</td>
+          <td class="best">$28.87–32.86/SF</td>
         </tr>
         <tr>
-          <td>Parking Ratio</td>
-          <td>Nearby</td>
+          <td>Parking</td>
           <td>0.38/1,000</td>
           <td>Ramp C $150/mo</td>
           <td>0.93/1,000</td>
-          <td class="best">2.56/1,000</td>
-          <td>0.91/1,000</td>
-          <td>2.09/1,000</td>
+          <td>Nearby</td>
+          <td class="best">2.22/1,000</td>
         </tr>
         <tr>
           <td>Year Built</td>
-          <td>2019</td>
           <td>2016</td>
           <td>2016</td>
           <td>1885</td>
-          <td>1980/2001</td>
-          <td>1987/2022</td>
-          <td>1968/2020</td>
+          <td>2019</td>
+          <td>1926/2017</td>
         </tr>
         <tr>
           <td>Submarket</td>
@@ -580,8 +930,6 @@
           <td>North Loop</td>
           <td>North Loop</td>
           <td>Downtown</td>
-          <td>Downtown</td>
-          <td>Nicollet Mall</td>
         </tr>
       </tbody>
     </table>
@@ -596,9 +944,28 @@
       <span style="opacity:0.4;">·</span>
       <span style="font-size:18px;font-weight:900;color:#ff8080;font-family:Georgia,serif;">JLL</span>
     </div>
-    <p>Prepared by JLL · Confidential · For phData use only · October 2026</p>
+    <p>Confidential · For phData use only · October 2026</p>
   </div>
 </footer>
 
+<script>
+async function submitFeedback(propId, propName, suiteName) {
+  var fb = document.getElementById('fb-' + propId);
+  var text = fb ? fb.value.trim() : '';
+  if (!text) { alert('Please enter your feedback first.'); return; }
+  try {
+    var res = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ property: propName, suite: suiteName, feedback: text })
+    });
+    if (res.ok) {
+      fb.value = '';
+      var ok = document.getElementById('fb-ok-' + propId);
+      if (ok) { ok.style.display = 'block'; setTimeout(function() { ok.style.display = 'none'; }, 4000); }
+    }
+  } catch(e) { alert('Could not send feedback. Please try again.'); }
+}
+</script>
 </body>
 </html>
