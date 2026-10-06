@@ -1082,7 +1082,7 @@ async function submitFeedback(propId, propName, suiteName) {
   var text = fb ? fb.value.trim() : '';
   if (!text) { alert('Please enter your feedback first.'); return; }
   try {
-    var res = await fetch('/api/feedback', {
+    var res = await fetch('https://phdata-survey.vercel.app/api/feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ property: propName, suite: suiteName, feedback: text })
